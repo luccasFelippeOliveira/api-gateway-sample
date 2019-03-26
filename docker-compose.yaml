@@ -1,0 +1,19 @@
+version: '3'
+services:
+  yes-no-service:
+    build: ./yes-no-service
+    ports:
+      - 3001:80
+  hello-service:
+    build: ./hello-service
+    ports:
+      - 3002:80
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx/app.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - yes-no-service
+      - hello-service
